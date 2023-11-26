@@ -1,0 +1,23 @@
+As in can be called with
+Card question_5 = New Card(get_Card_from_DB(id=5));
+System.println(question_5.Question_content);
+System.println(question_5.Question_answers);
+
+
+
+Cards functions (mainPackage.DB_Handler.DB_CardInteract)
+methods:                    | return type:      | parameters:
+-----------------------------------------------------------------
+amountOfCardsTotal          | int               | none
+amountOfCardsWithWhere      | int               | string (where sql statement)
+returnAllCards              | array of cards    | none
+returnCardByID              | mainPackage.DB_Handler.card              | string (id of mainPackage.DB_Handler.card)
+returnCardsByDifficulty     | array of cards    | int    (difficulty int)
+
+
+User functions (mainPackage.DB_Handler.DB_CardInteract)
+methods:                    | return type:      | parameters:
+-----------------------------------------------------------------
+loginCheck                  | bool              | user_ID, password (string)
+selectAll                   | int               | string (where sql statement)
+insert                      | none              | user_ID, password (string)
