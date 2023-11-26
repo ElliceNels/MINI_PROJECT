@@ -30,18 +30,18 @@ public class homeScene extends Scene{
         labelCosmetics(Intro);
 
         Button loginButton = new Button("Login");
-        buttonCosmetics(loginButton);
-        loginButton.setOnAction(e -> {
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            primaryStage.setScene(loginScene.createScene(stage));
-        });
+        buttonCosmetics(loginButton, orangeBackground, dropShadow );
+            loginButton.setOnAction(e -> {
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                primaryStage.setScene(loginScene.createScene(stage));
+            });
 
         Button signUpButton = new Button("Sign Up");
-        buttonCosmetics(signUpButton);
-        signUpButton.setOnAction(e -> {
-            Stage stage = (Stage) signUpButton.getScene().getWindow();
-            primaryStage.setScene(signupScene.createScene(stage));
-        });
+        buttonCosmetics(signUpButton, orangeBackground, dropShadow);
+            signUpButton.setOnAction(e -> {
+                Stage stage = (Stage) signUpButton.getScene().getWindow();
+                primaryStage.setScene(signupScene.createScene(stage));
+            });
 
         Button placeholder = new Button();
 
@@ -76,7 +76,7 @@ public class homeScene extends Scene{
         label.setAlignment(Pos.CENTER);
     }
 
-    public void buttonCosmetics(Button button){
+    public static void buttonCosmetics(Button button, Background orangeBackground, DropShadow dropShadow){
         button.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 15));
         button.setTextFill(Color.WHITE);
         button.setBackground(orangeBackground);
