@@ -24,46 +24,31 @@ public class loginScene extends Scene{
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
 	Insets offset = new Insets(10,10,10,10);
+    Button confirmButton = new Button("Confirm");
+    Button ReturnsignUpButton = new Button("Back to Sign Up");
+    TextField usernameField = new TextField();
+    PasswordField passwordField = new PasswordField();
+    Button placeholder = new Button();
 
     public loginScene(Stage primaryStage) {
         super(new VBox(), 450, 250);
 
-        Button confirmButton = new Button("Confirm");
         homeScene.buttonCosmetics(confirmButton, orangeBackground, dropShadow, 15);
 
-        Button ReturnsignUpButton = new Button("Back to Sign Up");
         homeScene.buttonCosmetics(ReturnsignUpButton, orangeBackground, dropShadow, 15);
             ReturnsignUpButton.setOnAction(e -> {
                 Stage stage = (Stage) ReturnsignUpButton.getScene().getWindow();
                 stage.setScene(signupScene.createScene(stage));
             });
 
-        TextField usernameField = new TextField();
         textfieldCosmetics(usernameField, "Username", dropShadow);
 
-        PasswordField passwordField = new PasswordField();
         textfieldCosmetics(passwordField, "Password", dropShadow);
-
-        Button placeholder = new Button();
 
         LOGIN(confirmButton, usernameField, passwordField);
 
-        //General layout settings-------------------------------------------------
-        GridPane LoginLay = new GridPane();
-        LoginLay.setStyle("-fx-background-color: #FFD966;");
-        LoginLay.setPadding(offset);
-        LoginLay.setVgap(10);
-        LoginLay.setHgap(5);
-        LoginLay.setAlignment(Pos.CENTER);
-        //Children addition and positioning
-        LoginLay.setConstraints(ReturnsignUpButton, 2 , 4);
-        LoginLay.setConstraints(usernameField, 2, 1);
-        LoginLay.setConstraints(passwordField, 2, 2);
-        LoginLay.setConstraints(confirmButton, 2, 3);
-        LoginLay.setConstraints(placeholder, 2, 200);
-        LoginLay.getChildren().addAll(ReturnsignUpButton, usernameField, passwordField, confirmButton, placeholder);
         VBox root = (VBox) this.getRoot();
-        root.getChildren().addAll(LoginLay);
+        root.getChildren().addAll(layoutMaker());
     }
 
     public static loginScene createScene(Stage primaryStage) {
@@ -109,5 +94,24 @@ public class loginScene extends Scene{
                 stage.setFullScreen(true);
             }
         });
+    }
+
+    public GridPane layoutMaker(){
+        GridPane LoginLay = new GridPane();
+        LoginLay.setStyle("-fx-background-color: #FFD966;");
+        LoginLay.setPadding(offset);
+        LoginLay.setVgap(10);
+        LoginLay.setHgap(5);
+        LoginLay.setAlignment(Pos.CENTER);
+        //Children addition and positioning
+        LoginLay.setConstraints(ReturnsignUpButton, 2 , 4);
+        LoginLay.setConstraints(usernameField, 2, 1);
+        LoginLay.setConstraints(passwordField, 2, 2);
+        LoginLay.setConstraints(confirmButton, 2, 3);
+        LoginLay.setConstraints(placeholder, 2, 200);
+        LoginLay.getChildren().addAll(ReturnsignUpButton, usernameField, passwordField, confirmButton, placeholder);
+
+
+        return LoginLay;
     }
 }

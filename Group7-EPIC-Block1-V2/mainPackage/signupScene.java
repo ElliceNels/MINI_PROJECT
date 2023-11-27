@@ -30,55 +30,32 @@ public class signupScene extends Scene{
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
 	Insets offset = new Insets(10,10,10,10);
-
+    Button ReturnloginButton = new Button("Back to Login Page");
+    Button createAccountButton = new Button("Create Account");
+    Button placeholder = new Button();
+    TextField newUsernameField = new TextField();
+    PasswordField newPasswordField = new PasswordField();
+    PasswordField confirmPasswordField = new PasswordField();
+    Popup existingUserPopup = new Popup();
+    Label existingUserPLabel = new Label();
     public signupScene(Stage primaryStage) {
         super(new VBox(), 450, 250);
 
-        Button ReturnloginButton = new Button("Back to Login Page");
         homeScene.buttonCosmetics(ReturnloginButton, orangeBackground, dropShadow, 15);
             ReturnloginButton.setOnAction(e -> {
                 Stage stage = (Stage) ReturnloginButton.getScene().getWindow();
                 stage.setScene(loginScene.createScene(stage));
             });
-
-        Button createAccountButton = new Button("Create Account");
         homeScene.buttonCosmetics(createAccountButton, orangeBackground, dropShadow, 15);
-
-        Button placeholder = new Button();
-
-        TextField newUsernameField = new TextField();
         loginScene.textfieldCosmetics(newUsernameField, "New Username", dropShadow);
-
-        PasswordField newPasswordField = new PasswordField();
         loginScene.textfieldCosmetics(newPasswordField, "New Password", dropShadow);
-
-        PasswordField confirmPasswordField = new PasswordField();
         loginScene.textfieldCosmetics(confirmPasswordField, "Confirm Password", dropShadow);
-
-        Popup existingUserPopup = new Popup();
-        Label existingUserPLabel = new Label();
 
         existingUserPLabel.setStyle("-fx-background-color:#D5D5D5; -fx-font-size:10;");
         existingUserPopup.getContent().add(existingUserPLabel);
 
-        //General layout settings------------------------------------------
-        GridPane SignUpLay = new GridPane();
-        SignUpLay.setStyle("-fx-background-color: #FFD966;");
-        SignUpLay.setPadding(offset);
-        SignUpLay.setVgap(10);
-        SignUpLay.setHgap(5);
-        SignUpLay.setAlignment(Pos.CENTER);
-        //Children addition and positioning
-        SignUpLay.setConstraints(ReturnloginButton, 3, 5);
-        SignUpLay.setConstraints(createAccountButton, 3, 4);
-        SignUpLay.setConstraints(newUsernameField, 3, 1);
-        SignUpLay.setConstraints(newPasswordField, 3, 2);
-        SignUpLay.setConstraints(confirmPasswordField, 3, 3);
-        SignUpLay.setConstraints(placeholder, 3, 200);
-        SignUpLay.getChildren().addAll(ReturnloginButton, createAccountButton, newUsernameField, newPasswordField, confirmPasswordField, placeholder);
-        // Add the button to the scene's layout
         VBox root = (VBox) this.getRoot();
-        root.getChildren().add(SignUpLay);
+        root.getChildren().add(layoutMaker());
 
         SIGNUP(createAccountButton, newUsernameField, newPasswordField, confirmPasswordField, existingUserPopup, primaryStage, existingUserPLabel);
     }
@@ -133,5 +110,24 @@ public class signupScene extends Scene{
 
             }
         });
+    }
+
+    public GridPane layoutMaker(){
+        GridPane SignUpLay = new GridPane();
+        SignUpLay.setStyle("-fx-background-color: #FFD966;");
+        SignUpLay.setPadding(offset);
+        SignUpLay.setVgap(10);
+        SignUpLay.setHgap(5);
+        SignUpLay.setAlignment(Pos.CENTER);
+        //Children addition and positioning
+        SignUpLay.setConstraints(ReturnloginButton, 3, 5);
+        SignUpLay.setConstraints(createAccountButton, 3, 4);
+        SignUpLay.setConstraints(newUsernameField, 3, 1);
+        SignUpLay.setConstraints(newPasswordField, 3, 2);
+        SignUpLay.setConstraints(confirmPasswordField, 3, 3);
+        SignUpLay.setConstraints(placeholder, 3, 200);
+        SignUpLay.getChildren().addAll(ReturnloginButton, createAccountButton, newUsernameField, newPasswordField, confirmPasswordField, placeholder);
+
+        return SignUpLay;
     }
 }
