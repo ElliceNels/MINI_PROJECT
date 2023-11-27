@@ -3,6 +3,7 @@ package mainPackage;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +20,6 @@ import javafx.stage.Stage;
 public class mainmenuScene extends Scene {
 
     Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
-    Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     Insets offset = new Insets(10,10,10,10);
     DropShadow dropShadow = new DropShadow();
     Button playButton = new Button("-Play-");
@@ -37,62 +37,62 @@ public class mainmenuScene extends Scene {
 
     public mainmenuScene(Stage primaryStage) {
         super((new VBox()));
-        
-        playButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 40));
-        playButton.setTextFill(Color.WHITE);
-        playButton.setBackground(transparentBackground);
-        playButton.setEffect(dropShadow);
-        playButton.setTextAlignment(TextAlignment.CENTER);
-        playButton.setOnAction(e -> {
-            Stage stage = (Stage) playButton.getScene().getWindow();
-            primaryStage.setScene(playmodesScene.createScene(stage));
-            primaryStage.setFullScreen(true);
-        });
-        statsButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        statsButton.setTextFill(Color.WHITE);
-        statsButton.setBackground(transparentBackground);
-        statsButton.setEffect(dropShadow);
-        playButton.setTextAlignment(TextAlignment.CENTER);
-        statsButton.setOnAction(e -> {
-        	Stage stage = (Stage) statsButton.getScene().getWindow();
-            primaryStage.setScene(statGUI.createScene(stage));
-            primaryStage.setFullScreen(true);
-        });
-        questionIOButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        questionIOButton.setTextFill(Color.WHITE);
-        questionIOButton.setBackground(transparentBackground);
-        questionIOButton.setEffect(dropShadow);
-        playButton.setTextAlignment(TextAlignment.CENTER);
-        questionIOButton.setOnAction(e -> {
-        Stage stage = (Stage) questionIOButton.getScene().getWindow();
-        primaryStage.setScene(questionioScene.createScene(stage));
-        primaryStage.setFullScreen(true);
-        });
 
-        logoutButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        logoutButton.setTextFill(Color.WHITE);
-        logoutButton.setBackground(transparentBackground);
-        logoutButton.setEffect(dropShadow);
-        logoutButton.setTextAlignment(TextAlignment.CENTER);
-        logoutButton.setOnAction(e -> {
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        primaryStage.setScene(loginScene.createScene(stage));
-        });
+        //Control cosmetics and action
+        buttonCosmetics(playButton, 40);
+            playButton.setOnAction(e -> {
+                Stage stage = (Stage) playButton.getScene().getWindow();
+                primaryStage.setScene(playmodesScene.createScene(stage));
+                primaryStage.setFullScreen(true);
+            });
+
+        buttonCosmetics(statsButton, 20);
+            statsButton.setOnAction(e -> {
+        	    Stage stage = (Stage) statsButton.getScene().getWindow();
+                primaryStage.setScene(statGUI.createScene(stage));
+                primaryStage.setFullScreen(true);
+            });
+
+        buttonCosmetics(questionIOButton, 20);
+            questionIOButton.setOnAction(e -> {
+                Stage stage = (Stage) questionIOButton.getScene().getWindow();
+                primaryStage.setScene(questionioScene.createScene(stage));
+                primaryStage.setFullScreen(true);
+            });
+
+        buttonCosmetics(logoutButton, 20);
+            logoutButton.setOnAction(e -> {
+                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                primaryStage.setScene(loginScene.createScene(stage));
+            });
+
         currentUserLabel.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel.setTextFill(Color.WHITE);
+
         trademarkLabel.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         trademarkLabel.setTextFill(Color.WHITE);
-        dropShadow.setRadius(8); // Set the radius of the shadow
-        dropShadow.setColor(Color.BLACK);
+
         CUizPenguinView.setFitWidth(75);
         CUizPenguinView.setFitHeight(75);
         CUizPenguinView.setImage(CUizPenguin);
+
         CUizView.setFitWidth(440);
         CUizView.setFitHeight(250);
         CUizView.setImage(CUizLogo);
 
+        VBox root = (VBox) this.getRoot();
+        root.getChildren().addAll(layoutMaker());
+    }
 
-        //mainQuiz layout
+    public void buttonCosmetics(Button button, int fontSize){
+        button.setFont(Font.font("ADLam Display", FontWeight.NORMAL, fontSize));
+        button.setTextFill(Color.WHITE);
+        button.setBackground(transparentBackground);
+        button.setEffect(dropShadow);
+        button.setTextAlignment(TextAlignment.CENTER);
+    }
+
+    public Node layoutMaker(){
         GridPane CenterMainQuizLay = new GridPane();
         CenterMainQuizLay.setPadding(offset);
         CenterMainQuizLay.setVgap(10);
@@ -106,7 +106,7 @@ public class mainmenuScene extends Scene {
         CenterMainQuizLay.setHalignment(questionIOButton, HPos.CENTER);
         CenterMainQuizLay.setConstraints(logoutButton, 1, 4);
         CenterMainQuizLay.setHalignment(logoutButton, HPos.CENTER);
-        
+
         CenterMainQuizLay.getChildren().addAll(playButton, statsButton, questionIOButton, logoutButton);
 
 
@@ -128,10 +128,7 @@ public class mainmenuScene extends Scene {
         MainQuizLay.setBottom(BottomMainQuizLay);
         MainQuizLay.setCenter(CenterMainQuizLay);
 
-        VBox root = (VBox) this.getRoot();
-        root.getChildren().addAll(MainQuizLay);
-
-        
+        return MainQuizLay;
     }
 
     public static mainmenuScene createScene(Stage primaryStage) {
