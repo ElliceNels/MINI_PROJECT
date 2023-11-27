@@ -6,7 +6,7 @@ public class Questions {
 		 DB_SetUp.createNewDatabase();
 		 
 			//---------------------------------------------------------------------------------------------------------------
-			 //mainPackage.Questions and answers creation (note: fix powers, binary base numbers, finish q5 CompOrg)
+			 //Questions and answers creation
 			//---------------------------------------------------------------------------------------------------------------
 			
 			 DB_CreateTables.CreateStandardTables();
