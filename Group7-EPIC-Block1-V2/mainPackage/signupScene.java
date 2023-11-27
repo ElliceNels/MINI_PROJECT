@@ -35,14 +35,14 @@ public class signupScene extends Scene{
         super(new VBox(), 450, 250);
 
         Button ReturnloginButton = new Button("Back to Login Page");
-        homeScene.buttonCosmetics(ReturnloginButton, orangeBackground, dropShadow);
+        homeScene.buttonCosmetics(ReturnloginButton, orangeBackground, dropShadow, 15);
             ReturnloginButton.setOnAction(e -> {
                 Stage stage = (Stage) ReturnloginButton.getScene().getWindow();
                 stage.setScene(loginScene.createScene(stage));
             });
 
         Button createAccountButton = new Button("Create Account");
-        homeScene.buttonCosmetics(createAccountButton, orangeBackground, dropShadow);
+        homeScene.buttonCosmetics(createAccountButton, orangeBackground, dropShadow, 15);
 
         Button placeholder = new Button();
 
@@ -87,22 +87,6 @@ public class signupScene extends Scene{
         return new signupScene(primaryStage);
     }
 
-    public static void colorChange(TextField usernameField, PasswordField passwordField) {
-        Timeline colorChangeTimeline = new Timeline( //To store keyframes
-                new KeyFrame(Duration.seconds(0), e -> { // Change the text field's background color for 2 seconds
-                    usernameField.setStyle("-fx-background-color: red;");
-                    passwordField.setStyle("-fx-background-color: red;");
-
-                }),
-                new KeyFrame(Duration.seconds(1), e -> {// Revert the color after 3 seconds
-                    usernameField.setStyle("");
-                    passwordField.setStyle("");
-                }));
-        colorChangeTimeline.setCycleCount(1); //How many times it plays the sequence
-        colorChangeTimeline.playFromStart(); //play
-
-    }
-
     public static void failPopUp(Popup existingUserPopup, Stage window) {
         Timeline popupTimeline = new Timeline( //To store keyframes
                 new KeyFrame(Duration.seconds(0), e -> {
@@ -115,7 +99,7 @@ public class signupScene extends Scene{
         popupTimeline.playFromStart();
     }
 
-    public static boolean passwordCheck(String password) {
+    public static boolean passwordCheck(String password, Popup existingUserPopup, Stage primaryStage, Label existingUserPLabel) {
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
         boolean hasNumber = password.matches(".*\\d.*");
@@ -132,24 +116,20 @@ public class signupScene extends Scene{
             if (Objects.equals(confirmPass, pass)) { //tests whether the passwords  are equal
                 // password check
 
-                if (DB_UserInteract.insert(user, pass)){ // new user name and password stored if it doesn't exist, and password is valid
+                if (DB_UserInteract.insert(user, pass) && passwordCheck(pass, existingUserPopup, primaryStage, existingUserPLabel)){ // new user name and password stored if it doesn't exist, and password is valid
                     System.out.println("New user created successfully");
                     Stage stage = (Stage) createAccountButton.getScene().getWindow();
                     stage.setScene(homeScene.createScene(stage));
-                }
-                else if (passwordCheck(pass)){
-                    System.out.println("Invalid password"); //user exists and was not stored again
-                    failPopUp(existingUserPopup,primaryStage);
-                    existingUserPLabel.setText("Your password is invalid");
                 }
                 else {
                     System.out.println("user exists?");
                     failPopUp(existingUserPopup,primaryStage);
                     existingUserPLabel.setText("Something has gone wrong, most likely the username already exists. Try again. ");
+
                 }
             }else {
                 System.out.println("Passwords do not match.. ");
-                colorChange(confirmPasswordField, newPasswordField);
+                loginScene.colorChange(confirmPasswordField, newPasswordField);
 
             }
         });

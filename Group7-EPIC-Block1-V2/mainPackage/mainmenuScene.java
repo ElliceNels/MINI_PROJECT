@@ -1,5 +1,4 @@
 package mainPackage;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,28 +38,28 @@ public class mainmenuScene extends Scene {
         super((new VBox()));
 
         //Control cosmetics and action
-        buttonCosmetics(playButton, 40);
+        homeScene.buttonCosmetics(playButton, transparentBackground, dropShadow, 40);
             playButton.setOnAction(e -> {
                 Stage stage = (Stage) playButton.getScene().getWindow();
                 primaryStage.setScene(playmodesScene.createScene(stage));
                 primaryStage.setFullScreen(true);
             });
 
-        buttonCosmetics(statsButton, 20);
+        homeScene.buttonCosmetics(statsButton, transparentBackground, dropShadow, 20);
             statsButton.setOnAction(e -> {
         	    Stage stage = (Stage) statsButton.getScene().getWindow();
                 primaryStage.setScene(statGUI.createScene(stage));
                 primaryStage.setFullScreen(true);
             });
 
-        buttonCosmetics(questionIOButton, 20);
+        homeScene.buttonCosmetics(questionIOButton, transparentBackground, dropShadow, 20);
             questionIOButton.setOnAction(e -> {
                 Stage stage = (Stage) questionIOButton.getScene().getWindow();
                 primaryStage.setScene(questionioScene.createScene(stage));
                 primaryStage.setFullScreen(true);
             });
 
-        buttonCosmetics(logoutButton, 20);
+        homeScene.buttonCosmetics(logoutButton, transparentBackground, dropShadow, 20);
             logoutButton.setOnAction(e -> {
                 Stage stage = (Stage) logoutButton.getScene().getWindow();
                 primaryStage.setScene(loginScene.createScene(stage));
@@ -84,14 +83,6 @@ public class mainmenuScene extends Scene {
         root.getChildren().addAll(layoutMaker());
     }
 
-    public void buttonCosmetics(Button button, int fontSize){
-        button.setFont(Font.font("ADLam Display", FontWeight.NORMAL, fontSize));
-        button.setTextFill(Color.WHITE);
-        button.setBackground(transparentBackground);
-        button.setEffect(dropShadow);
-        button.setTextAlignment(TextAlignment.CENTER);
-    }
-
     public Node layoutMaker(){
         GridPane CenterMainQuizLay = new GridPane();
         CenterMainQuizLay.setPadding(offset);
@@ -106,7 +97,6 @@ public class mainmenuScene extends Scene {
         CenterMainQuizLay.setHalignment(questionIOButton, HPos.CENTER);
         CenterMainQuizLay.setConstraints(logoutButton, 1, 4);
         CenterMainQuizLay.setHalignment(logoutButton, HPos.CENTER);
-
         CenterMainQuizLay.getChildren().addAll(playButton, statsButton, questionIOButton, logoutButton);
 
 

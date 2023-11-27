@@ -29,10 +29,10 @@ public class loginScene extends Scene{
         super(new VBox(), 450, 250);
 
         Button confirmButton = new Button("Confirm");
-        homeScene.buttonCosmetics(confirmButton, orangeBackground, dropShadow);
+        homeScene.buttonCosmetics(confirmButton, orangeBackground, dropShadow, 15);
 
         Button ReturnsignUpButton = new Button("Back to Sign Up");
-        homeScene.buttonCosmetics(ReturnsignUpButton, orangeBackground, dropShadow);
+        homeScene.buttonCosmetics(ReturnsignUpButton, orangeBackground, dropShadow, 15);
             ReturnsignUpButton.setOnAction(e -> {
                 Stage stage = (Stage) ReturnsignUpButton.getScene().getWindow();
                 stage.setScene(signupScene.createScene(stage));

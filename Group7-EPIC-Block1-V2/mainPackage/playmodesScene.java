@@ -23,64 +23,54 @@ public class playmodesScene extends Scene {
     Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
     ImageView CUizView = new ImageView();
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
-
     Insets offset = new Insets(10,10,10,10);
-
+    Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
+    ImageView CUizPenguinView = new ImageView();
+    ImageView CUizPenguinView1 = new ImageView();
+    Button incDifficultyButton = new Button("Increasing\n"
+            + "Difficulty");
+    Button incScoreButton = new Button("Increasing\n"
+            + "Score");
+    Button randomPlayButton = new Button("Random\n"
+            + "Play");
+    ImageView CUizView1 = new ImageView();
+    Label currentUserLabel1 = new Label("Currently Logged in: " + launcher.user_ID );
+    Label chooseModeLabel= new Label("Choose a Game Mode");
     public playmodesScene(Stage primaryStage) {
         super(new VBox(), 520, 360);
         CUizView.setFitWidth(440);
         CUizView.setFitHeight(250);
         CUizView.setImage(CUizLogo);
 
+        CUizView1.setFitWidth(50);
+        CUizView1.setFitHeight(25);
+        CUizView1.setImage(CUizLogo);
 
-        Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
-        ImageView CUizPenguinView = new ImageView();
         CUizPenguinView.setFitWidth(75);
         CUizPenguinView.setFitHeight(75);
         CUizPenguinView.setImage(CUizPenguin);
 
-        ImageView CUizPenguinView1 = new ImageView();
         CUizPenguinView1.setFitWidth(75);
         CUizPenguinView1.setFitHeight(75);
         CUizPenguinView1.setImage(CUizPenguin);
 
-        dropShadow.setRadius(8); // Set the radius of the shadow
-        dropShadow.setColor(Color.BLACK);
-        Button incDifficultyButton = new Button("Increasing\n"
-                + "Difficulty");
-        incDifficultyButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        incDifficultyButton.setTextFill(Color.WHITE);
-        incDifficultyButton.setBackground(transparentBackground);
-        incDifficultyButton.setEffect(dropShadow);
-        incDifficultyButton.setTextAlignment(TextAlignment.CENTER);
-        incDifficultyButton.setOnAction(e -> {
-            Stage stage = (Stage) incDifficultyButton.getScene().getWindow();
-            gameplayScene.gamemodeInt = 0;
-            primaryStage.setScene(gameplayScene.createScene(stage));
-            primaryStage.setFullScreen(true);
+        homeScene.buttonCosmetics(incDifficultyButton, transparentBackground, dropShadow, 20);
+            incDifficultyButton.setOnAction(e -> {
+                Stage stage = (Stage) incDifficultyButton.getScene().getWindow();
+                gameplayScene.gamemodeInt = 0;
+                primaryStage.setScene(gameplayScene.createScene(stage));
+                primaryStage.setFullScreen(true);
         });
 
-        Button incScoreButton = new Button("Increasing\n"
-                + "Score");
-        incScoreButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        incScoreButton.setTextFill(Color.WHITE);
-        incScoreButton.setBackground(transparentBackground);
-        incScoreButton.setEffect(dropShadow);
-        incScoreButton.setTextAlignment(TextAlignment.CENTER);
+        homeScene.buttonCosmetics(incScoreButton, transparentBackground, dropShadow, 20);
         incScoreButton.setOnAction(e -> {
         Stage stage = (Stage) incScoreButton.getScene().getWindow();
             gameplayScene.gamemodeInt = 1;
             primaryStage.setScene(gameplayScene.createScene(stage));
             primaryStage.setFullScreen(true);
-    });
+        });
 
-        Button randomPlayButton = new Button("Random\n"
-                + "Play");
-        randomPlayButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-        randomPlayButton.setTextFill(Color.WHITE);
-        randomPlayButton.setBackground(transparentBackground);
-        randomPlayButton.setEffect(dropShadow);
-        randomPlayButton.setTextAlignment(TextAlignment.CENTER);
+        homeScene.buttonCosmetics(randomPlayButton, transparentBackground, dropShadow, 20  );
         randomPlayButton.setOnAction(e -> {
             Stage stage = (Stage) randomPlayButton.getScene().getWindow();
             gameplayScene.gamemodeInt = 2;
@@ -88,23 +78,17 @@ public class playmodesScene extends Scene {
             primaryStage.setFullScreen(true);
         });
 
-        ImageView CUizView1 = new ImageView();
-        CUizView1.setFitWidth(50);
-        CUizView1.setFitHeight(25);
-        CUizView1.setImage(CUizLogo);
-
-
-        Label currentUserLabel1 = new Label("Currently Logged in: " + launcher.user_ID );
         currentUserLabel1.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel1.setTextFill(Color.WHITE);
 
-        Label chooseModeLabel= new Label("Choose a Game Mode");
-        chooseModeLabel.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 40));
-        chooseModeLabel.setTextFill(Color.WHITE);
-        chooseModeLabel.setBackground(orangeBackground);
-        chooseModeLabel.setEffect(dropShadow);
-        chooseModeLabel.setTextAlignment(TextAlignment.CENTER);
+        homeScene.labelCosmetics(chooseModeLabel, 40, orangeBackground, dropShadow);
 
+        // Add the button to the scene's layout
+        VBox root = (VBox) this.getRoot();
+        root.getChildren().addAll(layoutmaker());
+    }
+
+    public BorderPane layoutmaker(){
         GridPane BottomPlayModesLay = new GridPane();
         BottomPlayModesLay.setVgap(10);
         BottomPlayModesLay.setHgap(5);
@@ -134,7 +118,6 @@ public class playmodesScene extends Scene {
         TopPlayModesLay.setConstraints(chooseModeLabel, 0, 8);
         TopPlayModesLay.getChildren().addAll(CUizView1, chooseModeLabel);
 
-
         BorderPane PlayModesLay = new BorderPane();
         PlayModesLay.setStyle("-fx-background-color: #FFD966;");
         PlayModesLay.setPadding(offset);
@@ -142,12 +125,9 @@ public class playmodesScene extends Scene {
         PlayModesLay.setBottom(BottomPlayModesLay);
         PlayModesLay.setCenter(CenterPlayModesLay);
 
-
-        // Add the button to the scene's layout
-        VBox root = (VBox) this.getRoot();
-        root.getChildren().addAll(PlayModesLay);
-
+        return PlayModesLay;
     }
+
     public static playmodesScene createScene(Stage primaryStage) {
         return new playmodesScene(primaryStage);
     }
