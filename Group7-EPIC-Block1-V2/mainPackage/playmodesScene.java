@@ -27,89 +27,79 @@ public class playmodesScene extends Scene {
     Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
     ImageView CUizPenguinView = new ImageView();
     ImageView CUizPenguinView1 = new ImageView();
-    Button incDifficultyButton = new Button("Increasing\n"
-            + "Difficulty");
-    Button incScoreButton = new Button("Increasing\n"
-            + "Score");
-    Button randomPlayButton = new Button("Random\n"
-            + "Play");
+    Button incDifficultyButton = new Button("Increasing Difficulty");
+    Button incScoreButton = new Button("Increasing Score");
+    Button randomPlayButton = new Button("Random Play");
     ImageView CUizView1 = new ImageView();
     Label currentUserLabel1 = new Label("Currently Logged in: " + launcher.user_ID );
     Label chooseModeLabel= new Label("Choose a Game Mode");
+    Button placeholder = new Button();
     public playmodesScene(Stage primaryStage) {
         super(new VBox(), 520, 360);
-        CUizView.setFitWidth(440);
-        CUizView.setFitHeight(250);
-        CUizView.setImage(CUizLogo);
 
         CUizView1.setFitWidth(50);
         CUizView1.setFitHeight(25);
         CUizView1.setImage(CUizLogo);
-
-        CUizPenguinView.setFitWidth(75);
-        CUizPenguinView.setFitHeight(75);
-        CUizPenguinView.setImage(CUizPenguin);
 
         CUizPenguinView1.setFitWidth(75);
         CUizPenguinView1.setFitHeight(75);
         CUizPenguinView1.setImage(CUizPenguin);
 
         homeScene.buttonCosmetics(incDifficultyButton, transparentBackground, dropShadow, 20);
-            incDifficultyButton.setOnAction(e -> {
-                Stage stage = (Stage) incDifficultyButton.getScene().getWindow();
-                gameplayScene.gamemodeInt = 0;
-                primaryStage.setScene(gameplayScene.createScene(stage));
-                primaryStage.setFullScreen(true);
-        });
+        buttonAction(incDifficultyButton, primaryStage, 0);
 
         homeScene.buttonCosmetics(incScoreButton, transparentBackground, dropShadow, 20);
-        incScoreButton.setOnAction(e -> {
-        Stage stage = (Stage) incScoreButton.getScene().getWindow();
-            gameplayScene.gamemodeInt = 1;
-            primaryStage.setScene(gameplayScene.createScene(stage));
-            primaryStage.setFullScreen(true);
-        });
+        buttonAction(incScoreButton, primaryStage, 1);
 
         homeScene.buttonCosmetics(randomPlayButton, transparentBackground, dropShadow, 20  );
-        randomPlayButton.setOnAction(e -> {
-            Stage stage = (Stage) randomPlayButton.getScene().getWindow();
-            gameplayScene.gamemodeInt = 2;
-            primaryStage.setScene(gameplayScene.createScene(stage));
-            primaryStage.setFullScreen(true);
-        });
+        buttonAction(randomPlayButton, primaryStage, 2 );
+
+        homeScene.labelCosmetics(chooseModeLabel, 40, orangeBackground, dropShadow);
 
         currentUserLabel1.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel1.setTextFill(Color.WHITE);
-
-        homeScene.labelCosmetics(chooseModeLabel, 40, orangeBackground, dropShadow);
 
         // Add the button to the scene's layout
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(layoutmaker());
     }
-
-    public BorderPane layoutmaker(){
+    public void buttonAction(Button button, Stage primaryStage, int gamemode){
+        button.setOnAction(e -> {
+            Stage stage = (Stage) incDifficultyButton.getScene().getWindow();
+            gameplayScene.gamemodeInt = gamemode;
+            primaryStage.setScene(gameplayScene.createScene(stage));
+            primaryStage.setFullScreen(true);
+        });
+    }
+    public GridPane bottomLayout(){
         GridPane BottomPlayModesLay = new GridPane();
         BottomPlayModesLay.setVgap(10);
         BottomPlayModesLay.setHgap(5);
         BottomPlayModesLay.setAlignment(Pos.CENTER);
-        BottomPlayModesLay.setConstraints(CUizPenguinView1, 0, 0);
-        BottomPlayModesLay.setConstraints(currentUserLabel1, 1, 0);
-        BottomPlayModesLay.getChildren().addAll(CUizPenguinView1, currentUserLabel1);
+        BottomPlayModesLay.setConstraints(CUizPenguinView1, 0, 50);
+        BottomPlayModesLay.setConstraints(currentUserLabel1, 1, 50);
+        BottomPlayModesLay.setConstraints(placeholder, 1, 200);
+        BottomPlayModesLay.getChildren().addAll(CUizPenguinView1, currentUserLabel1, placeholder);
 
+        return BottomPlayModesLay;
+    }
+    public GridPane centerLayout() {
         GridPane CenterPlayModesLay = new GridPane();
         CenterPlayModesLay.setPadding(offset);
         CenterPlayModesLay.setVgap(10);
         CenterPlayModesLay.setHgap(5);
         CenterPlayModesLay.setAlignment(Pos.CENTER);
-        CenterPlayModesLay.setConstraints(incDifficultyButton, 0, 1);
+        CenterPlayModesLay.setConstraints(incDifficultyButton, 0, 20);
         CenterPlayModesLay.setHalignment(incDifficultyButton, HPos.CENTER);
-        CenterPlayModesLay.setConstraints(incScoreButton, 10, 1);
+        CenterPlayModesLay.setConstraints(incScoreButton, 10, 20);
         CenterPlayModesLay.setHalignment(incScoreButton, HPos.CENTER);
-        CenterPlayModesLay.setConstraints(randomPlayButton, 5, 1);
+        CenterPlayModesLay.setConstraints(randomPlayButton, 5, 20);
         CenterPlayModesLay.setHalignment(randomPlayButton, HPos.CENTER);
         CenterPlayModesLay.getChildren().addAll(incDifficultyButton, incScoreButton, randomPlayButton);
 
+        return CenterPlayModesLay;
+    }
+    public GridPane topLayout() {
         GridPane TopPlayModesLay = new GridPane();
         TopPlayModesLay.setVgap(10);
         TopPlayModesLay.setHgap(5);
@@ -118,12 +108,16 @@ public class playmodesScene extends Scene {
         TopPlayModesLay.setConstraints(chooseModeLabel, 0, 8);
         TopPlayModesLay.getChildren().addAll(CUizView1, chooseModeLabel);
 
+        return TopPlayModesLay;
+    }
+    public BorderPane layoutmaker(){
+
         BorderPane PlayModesLay = new BorderPane();
         PlayModesLay.setStyle("-fx-background-color: #FFD966;");
         PlayModesLay.setPadding(offset);
-        PlayModesLay.setTop(TopPlayModesLay);
-        PlayModesLay.setBottom(BottomPlayModesLay);
-        PlayModesLay.setCenter(CenterPlayModesLay);
+        PlayModesLay.setTop(topLayout());
+        PlayModesLay.setBottom(bottomLayout());
+        PlayModesLay.setCenter(centerLayout());
 
         return PlayModesLay;
     }
