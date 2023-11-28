@@ -32,6 +32,7 @@ public class mainmenuScene extends Scene {
     ImageView CUizView = new ImageView();
     Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
     ImageView CUizPenguinView = new ImageView();
+    Button placeholder = new Button();
 
 
     public mainmenuScene(Stage primaryStage) {
@@ -64,7 +65,6 @@ public class mainmenuScene extends Scene {
                 Stage stage = (Stage) logoutButton.getScene().getWindow();
                 primaryStage.setScene(loginScene.createScene(stage));
             });
-
         currentUserLabel.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel.setTextFill(Color.WHITE);
 
@@ -83,40 +83,45 @@ public class mainmenuScene extends Scene {
         root.getChildren().addAll(layoutMaker());
     }
 
-    public Node layoutMaker(){
+    public Node centerLayout() {
         GridPane CenterMainQuizLay = new GridPane();
         CenterMainQuizLay.setPadding(offset);
         CenterMainQuizLay.setVgap(10);
         CenterMainQuizLay.setHgap(5);
         CenterMainQuizLay.setAlignment(Pos.CENTER);
-        CenterMainQuizLay.setConstraints(playButton, 1, 0);
+        CenterMainQuizLay.setConstraints(playButton, 1, 11);
         CenterMainQuizLay.setHalignment(playButton, HPos.CENTER);
-        CenterMainQuizLay.setConstraints(statsButton, 1, 2);
+        CenterMainQuizLay.setConstraints(statsButton, 1, 13);
         CenterMainQuizLay.setHalignment(statsButton, HPos.CENTER);
-        CenterMainQuizLay.setConstraints(questionIOButton, 1, 3);
+        CenterMainQuizLay.setConstraints(questionIOButton, 1, 14);
         CenterMainQuizLay.setHalignment(questionIOButton, HPos.CENTER);
-        CenterMainQuizLay.setConstraints(logoutButton, 1, 4);
+        CenterMainQuizLay.setConstraints(logoutButton, 1, 15);
         CenterMainQuizLay.setHalignment(logoutButton, HPos.CENTER);
         CenterMainQuizLay.getChildren().addAll(playButton, statsButton, questionIOButton, logoutButton);
 
-
+        return CenterMainQuizLay;
+    }
+    public Node bottomLayout() {
         GridPane BottomMainQuizLay = new GridPane();
         BottomMainQuizLay.setVgap(10);
         BottomMainQuizLay.setHgap(5);
         BottomMainQuizLay.setAlignment(Pos.CENTER);
-        BottomMainQuizLay.setConstraints(CUizPenguinView, 0, 0);
-        BottomMainQuizLay.setConstraints(currentUserLabel, 1, 0);
-        BottomMainQuizLay.setConstraints(trademarkLabel, 220, 0);
-        BottomMainQuizLay.getChildren().addAll(CUizPenguinView, currentUserLabel,trademarkLabel);
+        BottomMainQuizLay.setConstraints(CUizPenguinView, 0, 10);
+        BottomMainQuizLay.setConstraints(currentUserLabel, 1, 10);
+        BottomMainQuizLay.setConstraints(trademarkLabel, 220, 10);
+        BottomMainQuizLay.setConstraints(placeholder, 220, 200);
+        BottomMainQuizLay.getChildren().addAll(CUizPenguinView, currentUserLabel, trademarkLabel, placeholder);
 
-
+        return BottomMainQuizLay;
+    }
+    public Node layoutMaker(){
         BorderPane MainQuizLay = new BorderPane();
         MainQuizLay.setStyle("-fx-background-color: #FFD966;");
         MainQuizLay.setPadding(offset);
         MainQuizLay.setTop(CUizView);
         MainQuizLay.setAlignment(CUizView, Pos.CENTER);
-        MainQuizLay.setBottom(BottomMainQuizLay);
-        MainQuizLay.setCenter(CenterMainQuizLay);
+        MainQuizLay.setBottom(bottomLayout());
+        MainQuizLay.setCenter(centerLayout());
 
         return MainQuizLay;
     }
@@ -124,5 +129,4 @@ public class mainmenuScene extends Scene {
     public static mainmenuScene createScene(Stage primaryStage) {
         return new mainmenuScene(primaryStage);
     }
-
 }

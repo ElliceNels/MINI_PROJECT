@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -30,7 +29,7 @@ public class loginScene extends Scene{
     PasswordField passwordField = new PasswordField();
     Button placeholder = new Button();
 
-    public loginScene(Stage primaryStage) {
+    public loginScene(Stage ignoredPrimaryStage) {
         super(new VBox(), 450, 250);
 
         homeScene.buttonCosmetics(confirmButton, orangeBackground, dropShadow, 15);
