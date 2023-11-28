@@ -21,11 +21,9 @@ public class playmodesScene extends Scene {
     Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
     Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
-    ImageView CUizView = new ImageView();
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     Insets offset = new Insets(10,10,10,10);
     Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
-    ImageView CUizPenguinView = new ImageView();
     ImageView CUizPenguinView1 = new ImageView();
     Button incDifficultyButton = new Button("Increasing Difficulty");
     Button incScoreButton = new Button("Increasing Score");
