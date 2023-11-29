@@ -32,7 +32,6 @@ public class playmodesScene extends Scene {
     ImageView CUizView1 = new ImageView();
     Label currentUserLabel1 = new Label("Currently Logged in: " + launcher.user_ID );
     Label chooseModeLabel= new Label("Choose a Game Mode");
-    Button placeholder = new Button();
     public playmodesScene(Stage primaryStage) {
         super(new VBox(), 520, 360);
 

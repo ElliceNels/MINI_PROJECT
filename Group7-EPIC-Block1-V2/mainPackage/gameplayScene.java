@@ -80,14 +80,14 @@ public class gameplayScene extends Scene {
 
     VBox root = (VBox) this.getRoot();
     root.getChildren().addAll(layoutMaker(questionLabel));
-    
+
 }
     public static gameplayScene createScene(Stage primaryStage) {
         return new gameplayScene(primaryStage);
     }
 
     public card[] setGamemode(){
-        card[] cards_array = new card[0];
+        card[] cards_array;
         if (gamemodeInt == 0) {
             // difficulty
             cards_array = DB_CardInteract.allCardsIncreasingDifficulty();
@@ -103,6 +103,7 @@ public class gameplayScene extends Scene {
         }
         else {
             System.out.println("Error: gamemodeInt not set");
+            cards_array = null;
         }
         return cards_array;
     }
@@ -169,7 +170,7 @@ public class gameplayScene extends Scene {
     }
 
     public static int AnswerSelection(CheckBox Answer1ckBox, CheckBox Answer2ckBox, CheckBox Answer3ckBox, CheckBox Answer4ckBox) {
-        // test if more than one answer is selected
+        // test if more than one answer is selected (else)
         int total = 0;
         int user_answer = 9;
         if (Answer1ckBox.isSelected()) {
