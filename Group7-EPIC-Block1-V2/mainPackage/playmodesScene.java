@@ -3,6 +3,7 @@ package mainPackage;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,8 +36,8 @@ public class playmodesScene extends Scene {
     public playmodesScene(Stage primaryStage) {
         super(new VBox(), 520, 360);
 
-        CUizView1.setFitWidth(50);
-        CUizView1.setFitHeight(25);
+        CUizView1.setFitWidth(100);
+        CUizView1.setFitHeight(50);
         CUizView1.setImage(CUizLogo);
 
         CUizPenguinView1.setFitWidth(75);
@@ -52,7 +53,7 @@ public class playmodesScene extends Scene {
         homeScene.buttonCosmetics(randomPlayButton, transparentBackground, dropShadow, 20  );
         buttonAction(randomPlayButton, primaryStage, 2 );
 
-        homeScene.labelCosmetics(chooseModeLabel, 40, orangeBackground, dropShadow);
+        homeScene.labelCosmetics(chooseModeLabel, 50, orangeBackground, dropShadow);
 
         currentUserLabel1.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel1.setTextFill(Color.WHITE);
@@ -74,8 +75,8 @@ public class playmodesScene extends Scene {
         BottomPlayModesLay.setVgap(10);
         BottomPlayModesLay.setHgap(5);
         BottomPlayModesLay.setAlignment(Pos.CENTER);
-        BottomPlayModesLay.setConstraints(CUizPenguinView1, 0, 50);
-        BottomPlayModesLay.setConstraints(currentUserLabel1, 1, 50);
+        BottomPlayModesLay.setConstraints(CUizPenguinView1, 0, 25);
+        BottomPlayModesLay.setConstraints(currentUserLabel1, 1, 25);
         BottomPlayModesLay.setConstraints(placeholder, 1, 200);
         BottomPlayModesLay.getChildren().addAll(CUizPenguinView1, currentUserLabel1, placeholder);
 
@@ -102,7 +103,8 @@ public class playmodesScene extends Scene {
         TopPlayModesLay.setVgap(10);
         TopPlayModesLay.setHgap(5);
         TopPlayModesLay.setAlignment(Pos.CENTER);
-        TopPlayModesLay.setConstraints(CUizView1, 2, 1);
+        TopPlayModesLay.setConstraints(CUizView1, 0, 1);
+        TopPlayModesLay.setHalignment(CUizView1, HPos.CENTER);
         TopPlayModesLay.setConstraints(chooseModeLabel, 0, 8);
         TopPlayModesLay.getChildren().addAll(CUizView1, chooseModeLabel);
 

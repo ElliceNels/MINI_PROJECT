@@ -35,7 +35,7 @@ public class mainmenuScene extends Scene {
     Button placeholder = new Button();
 
 
-    public mainmenuScene(Stage primaryStage) {
+    public mainmenuScene(Stage primaryStage)  {
         super((new VBox()));
 
         //Control cosmetics and action
@@ -126,7 +126,7 @@ public class mainmenuScene extends Scene {
         return MainQuizLay;
     }
 
-    public static mainmenuScene createScene(Stage primaryStage) {
+   public static mainmenuScene createScene(Stage primaryStage) {
         return new mainmenuScene(primaryStage);
     }
 }

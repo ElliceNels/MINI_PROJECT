@@ -29,14 +29,17 @@ public class questionioScene extends Scene {
     static Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     static Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     static DropShadow dropShadow = new DropShadow();
+    Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
+    Insets offset = new Insets(10,10,10,10);
+    Button doneButton = new Button("Done");
+
     public questionioScene(Stage primaryStage) {
         super(new VBox(), 440, 350);
 
    	 
         //questionIO controls
-        Insets offset = new Insets(10,10,10,10);
 
-        Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
+
         ImageView CUizView = new ImageView();
         CUizView.setFitWidth(440);
         CUizView.setFitHeight(250);
@@ -67,7 +70,6 @@ public class questionioScene extends Scene {
             primaryStage.setScene(mainmenuScene.createScene(stage));
         });
 
-        Button doneButton = new Button("Done");//******************************
         buttonCosmetics(doneButton);
         doneButton.setOnAction(e -> storeNewQuestion(questionInTextfield, rightAnswerInTextfield, wrongAnswer1InTextfield, wrongAnswer2InTextfield, wrongAnswer3InTextfield, primaryStage));
 
