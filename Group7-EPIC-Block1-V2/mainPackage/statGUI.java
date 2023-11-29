@@ -11,29 +11,34 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tab;
 
+import static mainPackage.homeScene.orangeBackground;
+import static mainPackage.questionioScene.dropShadow;
+
 public class statGUI extends Scene {
     Scene linePage; // All scenes
     Scene leaderboard;
-
-
+    TabPane tabpane = new TabPane();
 
     public static LineChart<String, Number> create_line_chart_player_history(String user_id) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
+
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Score");
+
         LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Score over time (Player)");
+
         history[] player_history = Statistics.get_player_history(user_id);
         XYChart.Series series = new XYChart.Series();
         series.setName("Date/Score");
+
         // line chart data
         for (int i = 0; i < player_history.length; i++) {
             series.getData().add(new XYChart.Data<>(player_history[i].getDate(), player_history[i].getScore_of_round()));
@@ -65,7 +70,6 @@ public class statGUI extends Scene {
     public statGUI(Stage primaryStage) {
         super(new VBox(), 440, 250);
         String user_id = launcher.user_ID;
-
 
         // create vertical seperator
         Separator separator = new Separator();
@@ -132,8 +136,6 @@ public class statGUI extends Scene {
         });
 
 
-
-
         // create stats table, will contain stats for the user (mean, median, standard deviation)
         TableView statsTable = new TableView();
         statsTable.setStyle("-fx-background-color: #FFD966;");
@@ -166,49 +168,31 @@ public class statGUI extends Scene {
         // add table to the layout
         GridPane personalStatLayout = new GridPane();
         personalStatLayout.setStyle("-fx-background-color: #FFD966;");
-        // add table to the layout
         personalStatLayout.setConstraints(statsTable, 0, 0);
+        personalStatLayout.setAlignment(Pos.CENTER);
         personalStatLayout.getChildren().add(statsTable);
 
         //---------------------------------------------------------------------------------------------------------------------//
 
 
-        // create a tabpane
-        TabPane tabpane = new TabPane();
-// add button to the right of the tabplane
         Button backButton = new Button("Back");
-//        backButton.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
-//        backButton.setTextFill(Color.black);
-        backButton.setTextAlignment(TextAlignment.CENTER);
+        homeScene.buttonCosmetics(backButton, orangeBackground, dropShadow, 10);
         backButton.setOnAction(e -> {
             Stage stage = (Stage) backButton.getScene().getWindow();
             primaryStage.setScene(mainmenuScene.createScene(stage));
             primaryStage.setFullScreen(true);
         });
 
+        Tab tab1 = new Tab("Leaderboard");
+        tabCreation(tab1, leaderboardLay);
 
-        // create Tab
-        Tab tab = new Tab("Leaderboard");
-        // add label to the tab
-        tab.setContent(leaderboardLay);
-        tab.closableProperty().setValue(false);
-        // add tab
-        tabpane.getTabs().add(tab);
-
-        // create Tab
         Tab tab2 = new Tab("Your Graphs");
-        // add label to the tab
-        tab2.setContent(chatLayout);
-        tab2.closableProperty().setValue(false);
-        // add tab
-        tabpane.getTabs().add(tab2);
-//
+        tabCreation(tab2, chatLayout);
+
         Tab tab3 = new Tab("Your Stats");
-        // add label to the tab
-        tab3.setContent(statsTable);
-        tab3.closableProperty().setValue(false);
-        // add tab
-        tabpane.getTabs().add(tab3);
+        tabCreation(tab3, statsTable);
+
+
 
         // anchor pane
         AnchorPane anchorPane = new AnchorPane();
@@ -217,7 +201,6 @@ public class statGUI extends Scene {
         AnchorPane.setTopAnchor(tabpane, 2.0);
         AnchorPane.setLeftAnchor(tabpane, 2.0);
         AnchorPane.setRightAnchor(tabpane, 2.0);
-
         AnchorPane.setTopAnchor(backButton, 5.0);
         AnchorPane.setRightAnchor(backButton, 5.0);
 //        tabpane.setStyle("-fx-padding: 2 0 0 50;");
@@ -230,31 +213,35 @@ public class statGUI extends Scene {
 
     }
 
-
-        private static GridPane getChartGrid(Insets offset, Separator separator, String user_id) {
+    private static GridPane getChartGrid(Insets offset, Separator separator, String user_id) {
         LineChart<String, Number> lineChart_player = create_line_chart_player_history(user_id);
         LineChart<String, Number> lineChart_pop = create_line_chart_population_history();
         //You cannot use the same button on different scenes//
 
 
         //home layout
-        GridPane homeLay = new GridPane();
+        GridPane pageLay = new GridPane();
         //General layout settings
-        homeLay.setPadding(offset);
-        homeLay.setVgap(10);
-        homeLay.setHgap(5);
-        homeLay.setAlignment(Pos.CENTER);
-        //Children addition and positioning
-//        homeLay.setConstraints(lineChart_player, 1, 3);
-        homeLay.setConstraints(lineChart_player, 0, 2);
-        homeLay.setConstraints(separator, 1, 2);
-        homeLay.setConstraints(lineChart_pop, 2, 2);
-        homeLay.getChildren().addAll(lineChart_player, separator, lineChart_pop);
-        return homeLay;
+        pageLay.setPadding(offset);
+        pageLay.setVgap(10);
+        pageLay.setHgap(5);
+        pageLay.setAlignment(Pos.CENTER);
+        pageLay.setConstraints(lineChart_player, 0, 2);
+        pageLay.setConstraints(separator, 1, 2);
+        pageLay.setConstraints(lineChart_pop, 2, 2);
+        pageLay.getChildren().addAll(lineChart_player, separator, lineChart_pop);
+        pageLay.setPrefSize(1080, 1000);
+        
+        return pageLay;
     }
 
     public static statGUI createScene(Stage primaryStage) {
         return new statGUI(primaryStage);
     }
 
+    public void tabCreation(Tab tab, javafx.scene.Node node){
+        tab.setContent(node);
+        tab.closableProperty().setValue(false);
+        tabpane.getTabs().add(tab);
+    }
 }
