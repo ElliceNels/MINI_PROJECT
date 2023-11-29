@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class gameplayScene extends Scene {
+
+    //Controls Defined
     Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
@@ -52,6 +54,7 @@ public class gameplayScene extends Scene {
     public gameplayScene(Stage primaryStage) {
         super(new VBox(), 440, 350);
 
+        //Cosmetics applied
         homeScene.labelCosmetics(Answer1, 20, transparentBackground, dropShadow);
 
         homeScene.labelCosmetics(Answer2, 20, transparentBackground, dropShadow);
@@ -78,8 +81,9 @@ public class gameplayScene extends Scene {
         setAnswers(questionLabel, cards_array);
         nextButtonAction(primaryStage, questionLabel, cards_array);
 
-    VBox root = (VBox) this.getRoot();
-    root.getChildren().addAll(layoutMaker(questionLabel));
+        //Add layout to scene
+        VBox root = (VBox) this.getRoot();
+        root.getChildren().addAll(layoutMaker(questionLabel));
 
 }
     public static gameplayScene createScene(Stage primaryStage) {

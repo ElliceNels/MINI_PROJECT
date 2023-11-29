@@ -17,7 +17,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class mainmenuScene extends Scene {
-
+    //Controls defined
     Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     Insets offset = new Insets(10,10,10,10);
     DropShadow dropShadow = new DropShadow();
@@ -32,8 +32,6 @@ public class mainmenuScene extends Scene {
     ImageView CUizView = new ImageView();
     Image CUizPenguin = new Image(getClass().getResourceAsStream("CUizPenguin.png"));
     ImageView CUizPenguinView = new ImageView();
-    Button placeholder = new Button();
-
 
     public mainmenuScene(Stage primaryStage)  {
         super((new VBox()));
@@ -79,6 +77,7 @@ public class mainmenuScene extends Scene {
         CUizView.setFitHeight(250);
         CUizView.setImage(CUizLogo);
 
+        //Add layout to Scene
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(layoutMaker());
     }

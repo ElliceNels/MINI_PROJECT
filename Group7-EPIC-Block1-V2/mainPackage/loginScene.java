@@ -31,6 +31,7 @@ public class loginScene extends Scene{
     public loginScene(Stage ignoredPrimaryStage) {
         super(new VBox(), 450, 250);
 
+        //Cosmetics and Actions
         homeScene.buttonCosmetics(confirmButton, orangeBackground, dropShadow, 15);
 
         homeScene.buttonCosmetics(ReturnsignUpButton, orangeBackground, dropShadow, 15);
@@ -45,6 +46,7 @@ public class loginScene extends Scene{
 
         LOGIN(confirmButton, usernameField, passwordField);
 
+        //Add layout to scene
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(layoutMaker());
     }
@@ -54,37 +56,49 @@ public class loginScene extends Scene{
     }
 
     public static void colorChange(TextField usernameField, PasswordField passwordField) {
-        Timeline colorChangeTimeline = new Timeline( //To store keyframes
-                new KeyFrame(Duration.seconds(0), e -> { // Change the text field's background color for 2 seconds
+        //To store keyframes
+        Timeline colorChangeTimeline = new Timeline(
+
+                //Change the text field's background color for 1 seconds
+                new KeyFrame(Duration.seconds(0), e -> {
                     usernameField.setStyle("-fx-background-color: red;");
                     passwordField.setStyle("-fx-background-color: red;");
 
                 }),
-                new KeyFrame(Duration.seconds(1), e -> {// Revert the color after 3 seconds
+                //Revert the color after 3 seconds
+                new KeyFrame(Duration.seconds(1), e -> {
                     usernameField.setStyle("");
                     passwordField.setStyle("");
                 }));
-        colorChangeTimeline.setCycleCount(1); //How many times it plays the sequence
-        colorChangeTimeline.playFromStart(); //play
+
+        //How many times it plays the sequence
+        colorChangeTimeline.setCycleCount(1);
+        //Play sequence
+        colorChangeTimeline.playFromStart();
 
     }
 
     public static void textfieldCosmetics(TextField Field, String promptText, DropShadow dropShadow){
         Field.setPromptText(promptText);
-        Field.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
+        Field.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 14));
         Field.setEffect(dropShadow);
         Field.setAlignment(Pos.CENTER);
     }
 
     public void LOGIN(Button confirmButton, TextField usernameField, PasswordField passwordField){
         confirmButton.setOnAction(e -> {
-            String user = usernameField.getText(); 		//Changes user input into String to check in db
+            //Changes user input into String to check in db
+            String user = usernameField.getText();
             String pass = passwordField.getText();
 
-            if (!DB_UserInteract.loginCheck(user, pass)) { 	//Checks whether user name and password exists
-                colorChange(usernameField, passwordField);			//If it doesnt exist then go red
+            //Checks whether user name and password exists
+            if (!DB_UserInteract.loginCheck(user, pass)) {
+
+                //If it doesnt exist then go red
+                colorChange(usernameField, passwordField);
                 System.out.print("Username or password does not match. Try again");
             }else {
+                //If it exists then login in
                 System.out.print("Successful login");
                 launcher.user_ID = user;
                 Stage stage = (Stage) confirmButton.getScene().getWindow();

@@ -27,12 +27,13 @@ import java.util.Objects;
 
 
 public class signupScene extends Scene{
+
+    //Controls defined
     Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
 	Insets offset = new Insets(10,10,10,10);
     Button ReturnloginButton = new Button("Back to Login Page");
     Button createAccountButton = new Button("Create Account");
-    Button placeholder = new Button();
     TextField newUsernameField = new TextField();
     PasswordField newPasswordField = new PasswordField();
     PasswordField confirmPasswordField = new PasswordField();
@@ -41,6 +42,7 @@ public class signupScene extends Scene{
     public signupScene(Stage primaryStage) {
         super(new VBox(), 450, 250);
 
+        //Cosmetics and Action
         homeScene.buttonCosmetics(ReturnloginButton, orangeBackground, dropShadow, 15);
             ReturnloginButton.setOnAction(e -> {
                 Stage stage = (Stage) ReturnloginButton.getScene().getWindow();
@@ -54,6 +56,7 @@ public class signupScene extends Scene{
         existingUserPLabel.setStyle("-fx-background-color:#D5D5D5; -fx-font-size:10;");
         existingUserPopup.getContent().add(existingUserPLabel);
 
+        //Add layout to scene
         VBox root = (VBox) this.getRoot();
         root.getChildren().add(layoutMaker());
 
@@ -64,18 +67,6 @@ public class signupScene extends Scene{
         return new signupScene(primaryStage);
     }
 
-    public static void failPopUp(Popup existingUserPopup, Stage window) {
-        Timeline popupTimeline = new Timeline( //To store keyframes
-                new KeyFrame(Duration.seconds(0), e -> {
-                    existingUserPopup.show(window);
-                }),
-                new KeyFrame(Duration.seconds(3), e -> {
-                    existingUserPopup.hide();
-                }));
-        popupTimeline.setCycleCount(1); //How many times it plays the sequence
-        popupTimeline.playFromStart();
-    }
-
     public static boolean passwordCheck(String password, Popup existingUserPopup, Stage primaryStage, Label existingUserPLabel) {
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
@@ -83,24 +74,35 @@ public class signupScene extends Scene{
         boolean length = password.length() >= 8;
         return hasUppercase && hasLowercase && hasNumber && length;
     }
-//FIX PASSWORD CHECK POP UP
+
     public static void SIGNUP(Button createAccountButton, TextField newUsernameField, PasswordField newPasswordField, PasswordField confirmPasswordField, Popup existingUserPopup, Stage primaryStage, Label existingUserPLabel){
         createAccountButton.setOnAction(e -> {
-            String user = newUsernameField.getText(); 		//Changes user input into String to check in db
+            //Changes user input into String to check in db
+            String user = newUsernameField.getText();
             String pass = newPasswordField.getText();
             String confirmPass = confirmPasswordField.getText();
 
-            if (Objects.equals(confirmPass, pass)) { //tests whether the passwords  are equal
-                // password check
+            //tests whether the passwords are equal
+            if (Objects.equals(confirmPass, pass)) {
 
-                if (DB_UserInteract.insert(user, pass) && passwordCheck(pass, existingUserPopup, primaryStage, existingUserPLabel)){ // new user name and password stored if it doesn't exist, and password is valid
+                if (passwordCheck(pass, existingUserPopup, primaryStage, existingUserPLabel) && DB_UserInteract.insert(user, pass) ){ // new user name and password stored if it doesn't exist, and password is valid
                     System.out.println("New user created successfully");
                     Stage stage = (Stage) createAccountButton.getScene().getWindow();
                     stage.setScene(homeScene.createScene(stage));
+
+                }else if (!passwordCheck(pass, existingUserPopup, primaryStage, existingUserPLabel)){
+                    System.out.println("Password is invalid");
+                    questionioScene.SuccessPopUp(existingUserPopup,primaryStage);
+                    existingUserPLabel.setText("""
+                            Your password must: be 8 digits long
+                            have an upper and lower case letter
+                            contain a number
+                            """);
+
                 }
                 else {
                     System.out.println("user exists?");
-                    failPopUp(existingUserPopup,primaryStage);
+                    questionioScene.SuccessPopUp(existingUserPopup,primaryStage);
                     existingUserPLabel.setText("Something has gone wrong, most likely the username already exists. Try again. ");
 
                 }

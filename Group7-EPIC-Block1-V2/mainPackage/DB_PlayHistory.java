@@ -20,7 +20,7 @@ public class DB_PlayHistory {
         }
     }
 
-    // return the amount of mainPackage.history records in the database
+    // return the amount of history records in the database
     public static int amountOfHistory() {
         String sql = "SELECT COUNT(*) FROM play_history";
 
@@ -34,7 +34,7 @@ public class DB_PlayHistory {
         return 0;
     }
 
-    // return the amount of mainPackage.history records in the database with a where clause
+    // return the amount of history records in the database with a where clause
     public static int amountOfHistoryWithWhere(String whereClause) {
         String sql = "SELECT COUNT(*) FROM play_history WHERE " + whereClause;
 
@@ -48,7 +48,7 @@ public class DB_PlayHistory {
         return 0;
     }
 
-    // return all mainPackage.history records in the database
+    // return all history records in the database
     public static history[] returnAllHistory() {
         String sql = "SELECT user_ID, score_of_round, wins, losses, date FROM play_history";
 
@@ -80,7 +80,7 @@ public class DB_PlayHistory {
         return null;
     }
 
-    // return all mainPackage.history records of a user in the database
+    // return all history records of a user in the database
     public static history[] returnAllHistoryOfUser(String user_id) {
         String sql = "SELECT user_ID, score_of_round, wins, losses, date FROM play_history WHERE user_ID = ?";
 

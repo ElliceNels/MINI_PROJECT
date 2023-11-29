@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class card {
 
-    //    - mainPackage.DB_Handler.card id
+    //    - card id
     //    - Question_content
     //    - Question_answers
     //    - Question_correct_answer

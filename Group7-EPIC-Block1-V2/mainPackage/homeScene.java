@@ -23,7 +23,6 @@ public class homeScene extends Scene{
     static Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
     Insets offset = new Insets(10,10,10,10);
-    Button placeholder = new Button();
     Label Intro = new Label("Welcome to the quiz!\r"+ "Please Login or Sign up");
     Button loginButton = new Button("Login");
     Button signUpButton = new Button("Sign Up");
@@ -31,6 +30,7 @@ public class homeScene extends Scene{
     public homeScene(Stage primaryStage) {
         super(new VBox(), 440, 250);
 
+        //Apply cosmetics and actions
         labelCosmetics(Intro, 15, transparentBackground, dropShadow);
 
         buttonCosmetics(loginButton, orangeBackground, dropShadow, 13 );

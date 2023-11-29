@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.Arrays;
 
 public class DB_import {
-    // read from CSV file and create mainPackage.DB_Handler.card object from each row, then add to database
+    // read from CSV file and create card object from each row, then add to database
     public static void CSVImport(String path_to_file){
         String csvFile = path_to_file;
         String line = "";

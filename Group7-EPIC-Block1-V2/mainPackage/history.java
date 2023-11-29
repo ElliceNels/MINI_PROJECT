@@ -1,7 +1,5 @@
 package mainPackage;
 
-import java.util.Arrays;
-
 public class history {
     String user_ID;
     int score_of_round;

@@ -18,7 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class playmodesScene extends Scene {
-
+    //Controls defined
     Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     DropShadow dropShadow = new DropShadow();
     Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
@@ -35,6 +35,7 @@ public class playmodesScene extends Scene {
     public playmodesScene(Stage primaryStage) {
         super(new VBox(), 520, 360);
 
+        //Cosmetics and Actions
         CUizView1.setFitWidth(100);
         CUizView1.setFitHeight(50);
         CUizView1.setImage(CUizLogo);
@@ -57,7 +58,7 @@ public class playmodesScene extends Scene {
         currentUserLabel1.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 10));
         currentUserLabel1.setTextFill(Color.WHITE);
 
-        // Add the button to the scene's layout
+        // Add layout to the scene
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(layoutmaker());
     }

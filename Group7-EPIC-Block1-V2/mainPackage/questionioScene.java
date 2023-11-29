@@ -26,6 +26,7 @@ import javafx.util.Duration;
 
 
 public class questionioScene extends Scene {
+    //Controls defined
     static Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     static Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
     static DropShadow dropShadow = new DropShadow();
@@ -44,25 +45,22 @@ public class questionioScene extends Scene {
     public questionioScene(Stage primaryStage) {
         super(new VBox(), 440, 350);
 
-   	 
-        //questionIO controls
-
-
+        //Cosmetics and Actions
         CUizView.setFitWidth(440);
         CUizView.setFitHeight(250);
         CUizView.setImage(CUizLogo);
 
         CUizView2.setImage(CUizLogo);
 
-        textfieldCosmetics(questionInTextfield,"Input Question", 20);
+        loginScene.textfieldCosmetics(questionInTextfield,"Input Question", dropShadow);
 
-        textfieldCosmetics(rightAnswerInTextfield, "Input Correct Answer", 13);
+        loginScene.textfieldCosmetics(rightAnswerInTextfield, "Input Correct Answer", dropShadow);
 
-        textfieldCosmetics(wrongAnswer1InTextfield, "Input Wrong Answer 1", 13);
+        loginScene.textfieldCosmetics(wrongAnswer1InTextfield, "Input Wrong Answer 1", dropShadow);
 
-        textfieldCosmetics(wrongAnswer2InTextfield, "Input Wrong Answer 2", 13);
+        loginScene.textfieldCosmetics(wrongAnswer2InTextfield, "Input Wrong Answer 2", dropShadow);
 
-        textfieldCosmetics(wrongAnswer3InTextfield, "Input Wrong Answer 3", 13);
+        loginScene.textfieldCosmetics(wrongAnswer3InTextfield, "Input Wrong Answer 3", dropShadow);
 
         homeScene.buttonCosmetics(returnMainButton, orangeBackground, dropShadow, 18);
         returnMainButton.setOnAction(e -> {
@@ -73,7 +71,7 @@ public class questionioScene extends Scene {
         homeScene.buttonCosmetics(doneButton, transparentBackground, dropShadow,18);
         doneButton.setOnAction(e -> storeNewQuestion(questionInTextfield, rightAnswerInTextfield, wrongAnswer1InTextfield, wrongAnswer2InTextfield, wrongAnswer3InTextfield, primaryStage));
 
-        // Add the button to the scene's layout
+        // Add layout to the scene
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(layoutMaker());
 
@@ -102,32 +100,25 @@ public class questionioScene extends Scene {
         return new questionioScene(primaryStage);
     }
 
-    public static void SuccessPopUp(Popup successfulQAddp, Stage stage) {
-        Timeline popupTimeline = new Timeline( //To store keyframes
+    public static void SuccessPopUp(Popup popup, Stage stage) {
+        Timeline popupTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(0), e -> {
-                    successfulQAddp.show(stage);
+                    popup.show(stage);
                 }),
                 new KeyFrame(Duration.seconds(3), e -> {
-                    successfulQAddp.hide();
+                    popup.hide();
                 }));
-        popupTimeline.setCycleCount(1); //How many times it plays the sequence
+        popupTimeline.setCycleCount(1);
         popupTimeline.playFromStart();
     }
 
-    public static void textfieldCosmetics(TextField textfieldName, String promptText, int fontWeight){
-        textfieldName.setPromptText(promptText);
-        textfieldName.setFont(Font.font("ADLam Display", FontWeight.NORMAL, fontWeight));
-        textfieldName.setEffect(dropShadow);
-        textfieldName.setAlignment(Pos.CENTER);
-    }
-
     public static void storeNewQuestion(TextField questionInTextfield, TextField rightAnswerInTextfield, TextField wrongAnswer1InTextfield, TextField wrongAnswer2InTextfield, TextField wrongAnswer3InTextfield, Stage primaryStage){
-        // generate string USR+random number
-        // add card to database
+
+        //generate string USR+random number
         int rand = (int)(Math.random() * 500)+1;
-        // string
         String card_id= "usr" + rand;
 
+        //add card to database
         card user_manual = new card(card_id, questionInTextfield.getText(), rightAnswerInTextfield.getText() + ";" + wrongAnswer1InTextfield.getText() + ";" + wrongAnswer2InTextfield.getText() + ";" + wrongAnswer3InTextfield.getText(), 0, 0, 0);
         DB_CardInteract.addCardToDB(user_manual);
         Popup successfulQAddp = new Popup();

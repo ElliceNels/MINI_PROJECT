@@ -21,7 +21,7 @@ import static mainPackage.homeScene.orangeBackground;
 import static mainPackage.questionioScene.dropShadow;
 
 public class statGUI extends Scene {
-    Scene linePage; // All scenes
+    Scene linePage;
     Scene leaderboard;
     TabPane tabpane = new TabPane();
 
@@ -77,12 +77,8 @@ public class statGUI extends Scene {
 
         Insets offset = new Insets(10, 10, 10, 10);
 
-
         // x axis is date
         // y axis is score
-        //
-        // line chart
-
 
         GridPane chatLayout = getChartGrid(offset, separator, user_id);
         chatLayout.setStyle("-fx-background-color: #FFD966;");
@@ -207,7 +203,6 @@ public class statGUI extends Scene {
 
         anchorPane.getChildren().addAll(tabpane, backButton);
 
-        // -----------------------------------------------------------------------------------------------//
         VBox root = (VBox) this.getRoot();
         root.getChildren().addAll(anchorPane);
 
@@ -216,10 +211,8 @@ public class statGUI extends Scene {
     private static GridPane getChartGrid(Insets offset, Separator separator, String user_id) {
         LineChart<String, Number> lineChart_player = create_line_chart_player_history(user_id);
         LineChart<String, Number> lineChart_pop = create_line_chart_population_history();
-        //You cannot use the same button on different scenes//
 
-
-        //home layout
+        //layout
         GridPane pageLay = new GridPane();
         //General layout settings
         pageLay.setPadding(offset);

@@ -6,14 +6,13 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// learned from https://www.sqlitetutorial.net/sqlite-java/
-
 public class DB_SetUp {
 
     public static void createNewDatabase() {
         // check if DQuiz folder exists in appdata
         String appdataPath = System.getenv("APPDATA");
-        String DquizPath = appdataPath + "/DQuiz";              // DQuiz database folder path in APPDATA
+        // DQuiz database folder path in APPDATA
+        String DquizPath = appdataPath + "/DQuiz";
 
         File DquizFolder = new File(DquizPath);
         if (!DquizFolder.exists()) {

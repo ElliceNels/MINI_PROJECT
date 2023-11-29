@@ -52,7 +52,6 @@ public class postgameScene extends Scene {
             return new postgameScene(primarystage, score);
         }
 
-
         public VBox layoutMaker(Label scoreDisplayLabel){
             VBox Lay = new VBox();
             Lay.setStyle("-fx-background-color: #FFD966;");

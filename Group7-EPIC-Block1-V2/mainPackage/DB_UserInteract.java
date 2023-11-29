@@ -4,8 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DB_UserInteract {
-    // needs to be able to create a new user
-    // needs to be able to access a user
+    //create a new user
+    //access a user
 
     public static void selectAll(){
         String sql = "SELECT user_ID, password FROM users";
