@@ -44,8 +44,6 @@ public class gameplayScene extends Scene {
     static int i = 0;
     Label currentScoreLabel = new Label("Current Score:" + score);
     Button nextButton = new Button("Next");
-    card[] cards_array;
-    Label questionLabel = new Label(cards_array[i].Question_content);
     HBox answer1 = new HBox(Answer1ckBox, Answer1);
     HBox answer2 = new HBox(Answer2ckBox, Answer2);
     HBox answer3 = new HBox(Answer3ckBox, Answer3);
@@ -72,22 +70,24 @@ public class gameplayScene extends Scene {
 
         homeScene.buttonCosmetics(nextButton, orangeBackground, dropShadow, 20);
 
+        card[] cards_array = setGamemode();
+
+        Label questionLabel = new Label(cards_array[i].Question_content);
         homeScene.labelCosmetics(questionLabel, 20, orangeBackground, dropShadow);
 
-        setGamemode();
-
-        setAnswers(questionLabel);
-        nextButtonAction(primaryStage, questionLabel);
+        setAnswers(questionLabel, cards_array);
+        nextButtonAction(primaryStage, questionLabel, cards_array);
 
     VBox root = (VBox) this.getRoot();
-    root.getChildren().addAll(layoutMaker());
+    root.getChildren().addAll(layoutMaker(questionLabel));
     
 }
     public static gameplayScene createScene(Stage primaryStage) {
         return new gameplayScene(primaryStage);
     }
 
-    public void setGamemode(){
+    public card[] setGamemode(){
+        card[] cards_array = new card[0];
         if (gamemodeInt == 0) {
             // difficulty
             cards_array = DB_CardInteract.allCardsIncreasingDifficulty();
@@ -104,9 +104,10 @@ public class gameplayScene extends Scene {
         else {
             System.out.println("Error: gamemodeInt not set");
         }
+        return cards_array;
     }
 
-    public void nextButtonAction(Stage primaryStage, Label questionLabel ){
+    public void nextButtonAction(Stage primaryStage, Label questionLabel, card[] cards_array){
         nextButton.setOnAction(e -> {
             Answer3ckBox.setVisible(true);
             Answer4ckBox.setVisible(true);
@@ -136,11 +137,11 @@ public class gameplayScene extends Scene {
                 resetScore();
             }
             System.out.println(score);
-            setAnswers(questionLabel);
+            setAnswers(questionLabel, cards_array);
         });
     }
 
-    public void setAnswers(Label questionLabel){
+    public void setAnswers(Label questionLabel, card[] cards_array){
         questionLabel.setText(cards_array[i].Question_content);
         currentScoreLabel.setText("Current Score:" + score);
         //** if array length
@@ -234,7 +235,7 @@ public class gameplayScene extends Scene {
         i = 0;
     }
 
-    public VBox centerLayout(){
+    public VBox centerLayout(Label questionLabel){
         VBox CenterGameLay = new VBox(10);
         CenterGameLay.setAlignment(Pos.CENTER);
         CenterGameLay.getChildren().addAll(questionLabel, answer1, answer2, answer3, answer4 , nextButton);
@@ -243,13 +244,13 @@ public class gameplayScene extends Scene {
         return CenterGameLay;
     }
 
-    public BorderPane layoutMaker(){
+    public BorderPane layoutMaker(Label questionLabel){
         BorderPane GameLay = new BorderPane();
         GameLay.setStyle("-fx-background-color: #FFD966;");
         GameLay.setPadding(offset);
         GameLay.setBottom(currentScoreLabel);
         GameLay.setPrefSize(1080,900);
-        GameLay.setCenter(centerLayout());
+        GameLay.setCenter(centerLayout(questionLabel));
 
         return GameLay;
     }
