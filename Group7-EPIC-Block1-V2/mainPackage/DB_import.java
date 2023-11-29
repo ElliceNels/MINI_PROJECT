@@ -11,8 +11,9 @@ public class DB_import {
         String line = "";
         String cvsSplitBy = ",";
         boolean firstLine = true;
-        try (Connection conn = DB_ConnCreator.connect();
-             Statement stmt = conn.createStatement()) {
+        try {
+            Connection conn = DB_ConnCreator.connect();
+            Statement stmt = conn.createStatement();
             BufferedReader br = new BufferedReader(new FileReader(csvFile));
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
@@ -58,8 +59,9 @@ public class DB_import {
 
 
 public static void CSVExport(String path_to_file){
-        try (Connection conn = DB_ConnCreator.connect();
-             Statement stmt = conn.createStatement()) {
+    try {
+        Connection conn = DB_ConnCreator.connect();
+        Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM cards";
             ResultSet rs = stmt.executeQuery(sql);
             FileWriter writer = new FileWriter(path_to_file);

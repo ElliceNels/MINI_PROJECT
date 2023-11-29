@@ -116,11 +116,11 @@ public class questionioScene extends Scene {
 
     public static void textfieldCosmetics(TextField textfieldName, String promptText, int fontWeight){
         textfieldName.setPromptText(promptText);
-        textfieldName.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 20));
+        textfieldName.setFont(Font.font("ADLam Display", FontWeight.NORMAL, fontWeight));
         textfieldName.setEffect(dropShadow);
         textfieldName.setAlignment(Pos.CENTER);
     }
-    
+
     public static void storeNewQuestion(TextField questionInTextfield, TextField rightAnswerInTextfield, TextField wrongAnswer1InTextfield, TextField wrongAnswer2InTextfield, TextField wrongAnswer3InTextfield, Stage primaryStage){
         // generate string USR+random number
         // add card to database

@@ -10,9 +10,10 @@ public class DB_UserInteract {
     public static void selectAll(){
         String sql = "SELECT user_ID, password FROM users";
 
-        try (Connection conn = DB_ConnCreator.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+        try {
+            Connection conn = DB_ConnCreator.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
 
             // loop through the result set
             while (rs.next()) {
@@ -27,8 +28,9 @@ public class DB_UserInteract {
     public static boolean insert(String user_ID, String password) {
         String sql = "INSERT INTO users(user_ID,password) VALUES(?,?)";
 
-        try (Connection conn = DB_ConnCreator.connect();
-            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = DB_ConnCreator.connect();
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user_ID);
             pstmt.setString(2, password);
             pstmt.executeUpdate();
@@ -43,9 +45,10 @@ public class DB_UserInteract {
     public static boolean loginCheck(String user_ID, String password) {
         String sql = "SELECT user_ID, password FROM users WHERE user_ID = ? AND password = ?";
 
-        try (Connection conn = DB_ConnCreator.connect();
-             java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        try {
+            Connection conn = DB_ConnCreator.connect();
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
+            System.out.println("Trying to login with user_ID: " + user_ID + " and password: " + password);
             // set the value
             pstmt.setString(1,user_ID);
             pstmt.setString(2,password);
@@ -73,6 +76,7 @@ public class DB_UserInteract {
 
         }
         catch (SQLException e) {
+            System.out.println("Something went wrong with the login check.");
             System.out.println(e.getMessage());
         }
 

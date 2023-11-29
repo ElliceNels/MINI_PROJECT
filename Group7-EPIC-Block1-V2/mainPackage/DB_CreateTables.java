@@ -58,8 +58,9 @@ public class DB_CreateTables {
                         );""";
 
 
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
             // create a new table
             stmt.execute(sql_create_table_cards); 
             stmt.execute(sql_create_table_user);

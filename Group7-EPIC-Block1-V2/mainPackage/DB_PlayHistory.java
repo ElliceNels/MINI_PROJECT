@@ -7,8 +7,9 @@ public class DB_PlayHistory {
     public static void addHistory(String user_id, int score_of_round, int wins, int losses) {
         String sql = "INSERT INTO play_history(user_ID,score_of_round, wins, losses, date) VALUES(?,?,?,?,date());";
 
-        try (Connection conn = DB_ConnCreator.connect();
-             java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = DB_ConnCreator.connect();
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user_id);
             pstmt.setInt(2, score_of_round);
             pstmt.setInt(3, wins);
