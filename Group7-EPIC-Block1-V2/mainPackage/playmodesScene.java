@@ -77,8 +77,7 @@ public class playmodesScene extends Scene {
         BottomPlayModesLay.setAlignment(Pos.CENTER);
         BottomPlayModesLay.setConstraints(CUizPenguinView1, 0, 25);
         BottomPlayModesLay.setConstraints(currentUserLabel1, 1, 25);
-        BottomPlayModesLay.setConstraints(placeholder, 1, 200);
-        BottomPlayModesLay.getChildren().addAll(CUizPenguinView1, currentUserLabel1, placeholder);
+        BottomPlayModesLay.getChildren().addAll(CUizPenguinView1, currentUserLabel1);
 
         return BottomPlayModesLay;
     }
@@ -118,7 +117,7 @@ public class playmodesScene extends Scene {
         PlayModesLay.setTop(topLayout());
         PlayModesLay.setBottom(bottomLayout());
         PlayModesLay.setCenter(centerLayout());
-
+        PlayModesLay.setPrefSize(1080, 1000);
         return PlayModesLay;
     }
 

@@ -82,8 +82,8 @@ public class homeScene extends Scene{
         homeLay.setConstraints(Intro, 2, 0);
         homeLay.setConstraints(loginButton, 1, 10);
         homeLay.setConstraints(signUpButton, 3, 10);
-        homeLay.setConstraints(placeholder, 1, 100);
-        homeLay.getChildren().addAll(Intro, loginButton, signUpButton, placeholder);
+        homeLay.getChildren().addAll(Intro, loginButton, signUpButton);
+        homeLay.setPrefSize(1080, 1000);
 
         return homeLay;
     }

@@ -109,8 +109,7 @@ public class mainmenuScene extends Scene {
         BottomMainQuizLay.setConstraints(CUizPenguinView, 0, 10);
         BottomMainQuizLay.setConstraints(currentUserLabel, 1, 10);
         BottomMainQuizLay.setConstraints(trademarkLabel, 220, 10);
-        BottomMainQuizLay.setConstraints(placeholder, 220, 200);
-        BottomMainQuizLay.getChildren().addAll(CUizPenguinView, currentUserLabel, trademarkLabel, placeholder);
+        BottomMainQuizLay.getChildren().addAll(CUizPenguinView, currentUserLabel, trademarkLabel);
 
         return BottomMainQuizLay;
     }
@@ -122,6 +121,7 @@ public class mainmenuScene extends Scene {
         MainQuizLay.setAlignment(CUizView, Pos.CENTER);
         MainQuizLay.setBottom(bottomLayout());
         MainQuizLay.setCenter(centerLayout());
+        MainQuizLay.setPrefSize(1080, 1000);
 
         return MainQuizLay;
     }

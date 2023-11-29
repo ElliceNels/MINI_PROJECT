@@ -125,8 +125,8 @@ public class signupScene extends Scene{
         SignUpLay.setConstraints(newUsernameField, 3, 1);
         SignUpLay.setConstraints(newPasswordField, 3, 2);
         SignUpLay.setConstraints(confirmPasswordField, 3, 3);
-        SignUpLay.setConstraints(placeholder, 3, 200);
-        SignUpLay.getChildren().addAll(ReturnloginButton, createAccountButton, newUsernameField, newPasswordField, confirmPasswordField, placeholder);
+        SignUpLay.getChildren().addAll(ReturnloginButton, createAccountButton, newUsernameField, newPasswordField, confirmPasswordField);
+        SignUpLay.setPrefSize(1080, 1000);
 
         return SignUpLay;
     }

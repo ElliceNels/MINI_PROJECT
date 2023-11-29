@@ -27,7 +27,6 @@ public class loginScene extends Scene{
     Button ReturnsignUpButton = new Button("Back to Sign Up");
     TextField usernameField = new TextField();
     PasswordField passwordField = new PasswordField();
-    Button placeholder = new Button();
 
     public loginScene(Stage ignoredPrimaryStage) {
         super(new VBox(), 450, 250);
@@ -107,9 +106,8 @@ public class loginScene extends Scene{
         LoginLay.setConstraints(usernameField, 2, 1);
         LoginLay.setConstraints(passwordField, 2, 2);
         LoginLay.setConstraints(confirmButton, 2, 3);
-        LoginLay.setConstraints(placeholder, 2, 200);
-        LoginLay.getChildren().addAll(ReturnsignUpButton, usernameField, passwordField, confirmButton, placeholder);
-
+        LoginLay.getChildren().addAll(ReturnsignUpButton, usernameField, passwordField, confirmButton);
+        LoginLay.setPrefSize(1080,1000);
 
         return LoginLay;
     }
