@@ -231,7 +231,7 @@ public class statGUI extends Scene {
         pageLay.setConstraints(lineChart_pop, 2, 2);
         pageLay.getChildren().addAll(lineChart_player, separator, lineChart_pop);
         pageLay.setPrefSize(1080, 1000);
-        
+
         return pageLay;
     }
 

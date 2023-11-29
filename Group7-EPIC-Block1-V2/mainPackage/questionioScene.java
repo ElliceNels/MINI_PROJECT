@@ -32,6 +32,14 @@ public class questionioScene extends Scene {
     Image CUizLogo = new Image(getClass().getResourceAsStream("CUiz Logo.png"));
     Insets offset = new Insets(10,10,10,10);
     Button doneButton = new Button("Done");
+    ImageView CUizView = new ImageView();
+    ImageView CUizView2 = new ImageView();
+    TextField questionInTextfield= new TextField();
+    TextField rightAnswerInTextfield= new TextField();
+    TextField wrongAnswer1InTextfield= new TextField();
+    TextField wrongAnswer2InTextfield= new TextField();
+    TextField wrongAnswer3InTextfield= new TextField();
+    Button returnMainButton = new Button("Return to Main Menu");
 
     public questionioScene(Stage primaryStage) {
         super(new VBox(), 440, 350);
@@ -40,56 +48,55 @@ public class questionioScene extends Scene {
         //questionIO controls
 
 
-        ImageView CUizView = new ImageView();
         CUizView.setFitWidth(440);
         CUizView.setFitHeight(250);
         CUizView.setImage(CUizLogo);
 
-        ImageView CUizView2 = new ImageView();
         CUizView2.setImage(CUizLogo);
 
-        TextField questionInTextfield= new TextField();
         textfieldCosmetics(questionInTextfield,"Input Question", 20);
 
-        TextField rightAnswerInTextfield= new TextField();
         textfieldCosmetics(rightAnswerInTextfield, "Input Correct Answer", 13);
 
-        TextField wrongAnswer1InTextfield= new TextField();
         textfieldCosmetics(wrongAnswer1InTextfield, "Input Wrong Answer 1", 13);
 
-        TextField wrongAnswer2InTextfield= new TextField();
         textfieldCosmetics(wrongAnswer2InTextfield, "Input Wrong Answer 2", 13);
 
-        TextField wrongAnswer3InTextfield= new TextField();
         textfieldCosmetics(wrongAnswer3InTextfield, "Input Wrong Answer 3", 13);
 
-        Button returnMainButton = new Button("Return to mainPackage.DB_Handler.Main Menu");
-        buttonCosmetics(returnMainButton);
+        homeScene.buttonCosmetics(returnMainButton, orangeBackground, dropShadow, 18);
         returnMainButton.setOnAction(e -> {
             Stage stage = (Stage) returnMainButton.getScene().getWindow();
             primaryStage.setScene(mainmenuScene.createScene(stage));
         });
 
-        buttonCosmetics(doneButton);
+        homeScene.buttonCosmetics(doneButton, transparentBackground, dropShadow,18);
         doneButton.setOnAction(e -> storeNewQuestion(questionInTextfield, rightAnswerInTextfield, wrongAnswer1InTextfield, wrongAnswer2InTextfield, wrongAnswer3InTextfield, primaryStage));
 
-        //layout settings
-        VBox CenterQuestionIOLay = new VBox(10);
+        // Add the button to the scene's layout
+        VBox root = (VBox) this.getRoot();
+        root.getChildren().addAll(layoutMaker());
+
+    }
+    public VBox centerLayout(){
+        VBox CenterQuestionIOLay = new VBox(50);
         CenterQuestionIOLay.setAlignment(Pos.CENTER);
         CenterQuestionIOLay.getChildren().addAll(questionInTextfield, rightAnswerInTextfield, wrongAnswer1InTextfield, wrongAnswer2InTextfield, wrongAnswer3InTextfield, doneButton);
 
+        return CenterQuestionIOLay;
+    }
+
+    public BorderPane layoutMaker(){
         BorderPane QuestionIOLay = new BorderPane();
         QuestionIOLay.setStyle("-fx-background-color: #FFD966;");
         QuestionIOLay.setPadding(offset);
         QuestionIOLay.setTop(CUizView2);
         QuestionIOLay.setAlignment(CUizView2, Pos.CENTER);
-        QuestionIOLay.setCenter(CenterQuestionIOLay);
+        QuestionIOLay.setCenter(centerLayout());
         QuestionIOLay.setBottom(returnMainButton);
+        QuestionIOLay.setPrefSize(1080, 1000);
 
-        // Add the button to the scene's layout
-        VBox root = (VBox) this.getRoot();
-        root.getChildren().addAll(QuestionIOLay);
-
+        return QuestionIOLay;
     }
     public static questionioScene createScene(Stage primaryStage) {
         return new questionioScene(primaryStage);
@@ -113,19 +120,10 @@ public class questionioScene extends Scene {
         textfieldName.setEffect(dropShadow);
         textfieldName.setAlignment(Pos.CENTER);
     }
-
-    public static void buttonCosmetics(Button button){
-        button.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 13));
-        button.setTextFill(Color.WHITE);
-        button.setBackground(transparentBackground);
-        button.setEffect(dropShadow);
-        button.setTextAlignment(TextAlignment.CENTER);
-        button.setAlignment(Pos.CENTER);
-    }
-
+    
     public static void storeNewQuestion(TextField questionInTextfield, TextField rightAnswerInTextfield, TextField wrongAnswer1InTextfield, TextField wrongAnswer2InTextfield, TextField wrongAnswer3InTextfield, Stage primaryStage){
         // generate string USR+random number
-        // add mainPackage.DB_Handler.card to database
+        // add card to database
         int rand = (int)(Math.random() * 500)+1;
         // string
         String card_id= "usr" + rand;
