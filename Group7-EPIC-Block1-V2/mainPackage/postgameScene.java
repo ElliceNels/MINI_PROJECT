@@ -16,73 +16,53 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class postgameScene extends Scene {
-
+    Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
+    Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
+    DropShadow dropShadow = new DropShadow();
+    Label gameOverLabel = new Label("Game Over");
+    Label scoreLabel = new Label("Your total score is:");
+    Button viewStatsButton = new Button("View Statistics");
+    Button returnToMainButton = new Button("Return to Main Menu");
         public postgameScene(Stage primaryStage, int score) {
             //main template
             super(new VBox(), 440, 350);
 
             //cosmetic aspects
-            Background transparentBackground = new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
-            Background orangeBackground = new Background(new BackgroundFill(Color.rgb(232, 123, 56), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY));
-            DropShadow dropShadow = new DropShadow();
-       	 
-            //postGame controls
-            Label gameOverLabel = new Label("Game Over");
-            applyCosmeticsLabel(gameOverLabel, transparentBackground, dropShadow);
-
-            Label scoreLabel = new Label("Your total score is:");
-            applyCosmeticsLabel(gameOverLabel, transparentBackground, dropShadow);
+            homeScene.labelCosmetics(gameOverLabel, 28, transparentBackground, dropShadow);
 
             Label scoreDisplayLabel = new Label("" + score);
-            applyCosmeticsLabel(gameOverLabel, transparentBackground, dropShadow);
+            homeScene.labelCosmetics(scoreDisplayLabel, 20, transparentBackground, dropShadow);
 
-            Button viewStatsButton = new Button("View mainPackage.Statistics");
-            applyCosmeticsButton(viewStatsButton, orangeBackground, dropShadow);
+            homeScene.labelCosmetics(scoreLabel, 20, transparentBackground, dropShadow);
+
+            homeScene.buttonCosmetics(viewStatsButton, orangeBackground, dropShadow,15);
                 viewStatsButton.setOnAction(e -> {
                     primaryStage.setScene(statGUI.createScene(primaryStage));
                     primaryStage.setFullScreen(true);
                 });
 
-            Button returnToMainButton = new Button("Return to mainPackage.DB_Handler.Main Menu");
-            applyCosmeticsButton(returnToMainButton, orangeBackground, dropShadow);
+            homeScene.buttonCosmetics(returnToMainButton, orangeBackground, dropShadow,15);
                 returnToMainButton.setOnAction(e -> {
                     primaryStage.setScene(mainmenuScene.createScene(primaryStage));
                     primaryStage.setFullScreen(true);
                 });
 
-            //scene layout
-            VBox PostGameLay = new VBox();
-            PostGameLay.setStyle("-fx-background-color: #FFD966;");
-            PostGameLay.setAlignment(Pos.CENTER);
-            PostGameLay.getChildren().addAll(gameOverLabel, scoreLabel, scoreDisplayLabel, returnToMainButton, viewStatsButton );
-            PostGameLay.setSpacing(10);
-
             // Add the button to the scene's layout
             VBox root = (VBox) this.getRoot();
-            root.getChildren().addAll(PostGameLay);
+            root.getChildren().addAll(layoutMaker(scoreDisplayLabel));
         }
 
         public static Scene createScene(Stage primarystage, int score) {
             return new postgameScene(primarystage, score);
         }
 
-        public static void applyCosmeticsLabel(Label label, Background transparentBackground, DropShadow dropShadow){
-            label.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 24));
-            label.setTextFill(Color.WHITE);
-            label.setBackground(transparentBackground);
-            label.setEffect(dropShadow);
-            label.setTextAlignment(TextAlignment.CENTER);
-            label.setAlignment(Pos.CENTER);
+        public VBox layoutMaker(Label scoreDisplayLabel){
+            VBox PostGameLay = new VBox();
+            PostGameLay.setStyle("-fx-background-color: #FFD966;");
+            PostGameLay.setAlignment(Pos.CENTER);
+            PostGameLay.getChildren().addAll(gameOverLabel, scoreLabel, scoreDisplayLabel, returnToMainButton, viewStatsButton );
+            PostGameLay.setSpacing(10);
+
+            return PostGameLay;
         }
-
-        public static void applyCosmeticsButton(Button button, Background orangeBackground, DropShadow dropShadow){
-            button.setFont(Font.font("ADLam Display", FontWeight.NORMAL, 15));
-            button.setTextFill(Color.WHITE);
-            button.setBackground(orangeBackground);
-            button.setEffect(dropShadow);
-            button.setTextAlignment(TextAlignment.CENTER);
-            button.setAlignment(Pos.CENTER);
-        }
-
-
 }
